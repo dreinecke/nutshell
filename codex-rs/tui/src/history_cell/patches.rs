@@ -211,6 +211,17 @@ impl HistoryCell for ViewImageHistoryCell {
         vec![format!("Viewed image {}", self.path_label)]
     }
 
+    fn focus_lines(&self, width: u16) -> Vec<Line<'static>> {
+        crate::focus_summaries::first_display_line(self.display_lines(width))
+    }
+
+    fn focus_activity_counts(&self) -> Option<crate::focus_summaries::FocusActivityCounts> {
+        Some(crate::focus_summaries::FocusActivityCounts {
+            images: 1,
+            ..crate::focus_summaries::FocusActivityCounts::default()
+        })
+    }
+
     fn activity_ids(&self) -> Vec<String> {
         vec![self.activity_id.clone()]
     }
