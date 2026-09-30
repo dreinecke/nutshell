@@ -497,6 +497,9 @@ impl ChatWidget {
                 let enabled = self.toggle_raw_output_mode_and_notify();
                 self.emit_raw_output_mode_changed(enabled);
             }
+            SlashCommand::Focus => {
+                self.toggle_focus_mode_and_notify();
+            }
             SlashCommand::Tui => self.show_tui_mode_picker(),
             SlashCommand::Diff => {
                 self.add_diff_in_progress();
@@ -1304,6 +1307,7 @@ impl ChatWidget {
             | SlashCommand::Plugins
             | SlashCommand::Rollout
             | SlashCommand::Copy
+            | SlashCommand::Focus
             | SlashCommand::Raw
             | SlashCommand::Vim
             | SlashCommand::Daybreak
