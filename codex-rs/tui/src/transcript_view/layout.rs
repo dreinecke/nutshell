@@ -65,6 +65,17 @@ fn cell_content_layout(
     presentation: CellPresentation,
     shortcut: Option<ShortcutHint>,
 ) -> TextLayout {
+    if presentation.focus
+        && !cell
+            .as_any()
+            .is::<crate::history_cell::SessionInfoCell>()
+    {
+        // Session headers keep their composite presentation; everything else condenses.
+        return TextLayout::new(
+            crate::terminal_hyperlinks::plain_hyperlink_lines(cell.focus_lines(width)),
+            width,
+        );
+    }
     let mut layout = if presentation.disclosure {
         activity_layout(
             ActivityTranscriptLines {
@@ -135,6 +146,7 @@ pub(super) struct CellPresentation {
     disclosure: bool,
     detailed: bool,
     image_protocol: Option<crate::pets::ImageProtocol>,
+    focus: bool,
 }
 
 impl TranscriptView {
@@ -145,7 +157,9 @@ impl TranscriptView {
         mode: HistoryRenderMode,
     ) -> CellPresentation {
         let ids = cell.activity_ids();
-        let disclosure = !self.detailed && mode == HistoryRenderMode::Rich && !ids.is_empty();
+        let focus =
+            self.focus && !full_content && !self.detailed && mode == HistoryRenderMode::Rich;
+        let disclosure = !focus && !self.detailed && mode == HistoryRenderMode::Rich && !ids.is_empty();
         let manually_expanded = self.disclosure.is_expanded(&ids);
         let reveal_image = ids.is_empty() || manually_expanded || self.detailed;
         if manually_expanded {
@@ -162,6 +176,7 @@ impl TranscriptView {
             image_protocol: self
                 .image_protocol
                 .filter(|_| mode == HistoryRenderMode::Rich && reveal_image),
+            focus,
         }
     }
 
