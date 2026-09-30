@@ -129,6 +129,10 @@ impl HistoryCell for WebSearchCell {
         vec![self.summary().to_string()]
     }
 
+    fn focus_lines(&self, width: u16) -> Vec<Line<'static>> {
+        crate::focus_summaries::first_display_line(self.display_lines(width))
+    }
+
     fn display_lines(&self, width: u16) -> Vec<Line<'static>> {
         let bullet = if self.completed {
             "•".dim()
