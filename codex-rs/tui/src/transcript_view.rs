@@ -109,6 +109,10 @@ pub(crate) struct TranscriptView {
     area: Rect,
     prompt_header_target: Option<(Rect, EntryKey)>,
     suppressed_prompt_header: Option<prompt_header::SuppressedHeader>,
+    /// Hushdex focus mode: committed cells render `focus_lines` instead of compact/retained
+    /// presentations. The live tail, detailed browsing, raw mode, and the Ctrl+T overlay are
+    /// unaffected.
+    focus: bool,
     visible: Vec<VisibleRow>,
     selection: Option<Selection>,
     select_mode: Option<SelectMode>,
@@ -150,6 +154,7 @@ impl Default for TranscriptView {
             area: Rect::default(),
             prompt_header_target: None,
             suppressed_prompt_header: None,
+            focus: false,
             visible: Vec::new(),
             selection: None,
             select_mode: None,
@@ -494,6 +499,17 @@ impl TranscriptView {
         self.mode = mode;
     }
 
+    /// Sync Hushdex focus mode; toggling invalidates cached layouts.
+    pub(crate) fn set_focus_mode(&mut self, enabled: bool) {
+        if self.focus == enabled {
+            return;
+        }
+        self.focus = enabled;
+        self.cache.clear();
+        self.selection = None;
+        self.suppressed_prompt_header = None;
+    }
+
     pub(crate) fn has_active_interaction(&self) -> bool {
         self.select_mode.is_some()
             || self.selection.is_some()
@@ -801,3 +817,7 @@ mod markdown_copy_tests;
 #[cfg(test)]
 #[path = "transcript_view/copy_on_select_tests.rs"]
 mod copy_on_select_tests;
+
+#[cfg(test)]
+#[path = "transcript_view/focus_layout_tests.rs"]
+mod focus_layout_tests;
