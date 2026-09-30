@@ -204,6 +204,19 @@ impl HistoryCell for DynamicToolCallCell {
         )
     }
 
+    fn focus_activity_counts(&self) -> Option<crate::focus_summaries::FocusActivityCounts> {
+        let data = self
+            .data
+            .read()
+            .unwrap_or_else(std::sync::PoisonError::into_inner);
+        (!data.interrupted && data.status == DynamicToolCallStatus::Completed).then(|| {
+            crate::focus_summaries::FocusActivityCounts {
+                tools: 1,
+                ..crate::focus_summaries::FocusActivityCounts::default()
+            }
+        })
+    }
+
     fn activity_ids(&self) -> Vec<String> {
         vec![format!("dynamic:{}", self.call_id)]
     }
