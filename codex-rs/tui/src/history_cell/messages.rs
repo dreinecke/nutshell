@@ -4,8 +4,6 @@
 use super::markdown_render_cache::MarkdownRenderCache;
 use super::*;
 use crate::async_question_reply::AsyncQuestionReply;
-use crate::style::accent_color_on;
-use crate::style::history_prompt_style;
 use crate::terminal_hyperlinks::annotate_web_urls;
 use crate::terminal_hyperlinks::lines_with_sources_eq;
 use crate::terminal_hyperlinks::remap_source_wrapped_line;
@@ -265,8 +263,11 @@ impl HistoryCell for UserHistoryCell {
             )
             .max(/*other*/ 1);
 
-        let style = history_prompt_style();
-        let element_style = user_message_element_style(style, accent_color_on(style.bg));
+        let style = crate::user_band::user_band_fill();
+        let element_style = user_message_element_style(
+            style,
+            crate::style::deterministic_accent_on(style.bg),
+        );
 
         let wrapped_images = plain_hyperlink_lines(adaptive_wrap_lines(
             self.image_labels_not_in_message()
@@ -282,17 +283,14 @@ impl HistoryCell for UserHistoryCell {
                     false,
                 )
             } else {
-                let marker = if self.is_spoken() {
-                    "› ".red().bold()
-                } else {
-                    "› ".bold().dim()
-                };
                 let markdown = if self.uses_markdown() {
                     crate::markdown::render_markdown_for_viewport(message, wrap_width)
                 } else {
                     Vec::new()
                 };
                 let copy_as_prose = !crate::markdown_copy::has_visible_markup(&markdown, message);
+                // Nutshell: the band's bar prefix replaces the "›" chevron, so the body is
+                // returned unprefixed and framed by the band block below.
                 let body = if copy_as_prose {
                     wrap_user_message(message, text_elements, style, wrap_width)
                 } else {
@@ -305,27 +303,32 @@ impl HistoryCell for UserHistoryCell {
                         })
                         .collect()
                 };
-                (
-                    prefix_hyperlink_lines(body, marker, "  ".into()),
-                    copy_as_prose,
-                )
+                (body, copy_as_prose)
             };
         if wrapped_images.is_empty() && wrapped_message.is_empty() {
             return Vec::new();
         }
         let mut lines = vec![HyperlinkLine::new(Line::from("").style(style))];
         if !wrapped_images.is_empty() {
+            // Hushdex: the user band's bar prefix frames every row of the block.
+            let bar = crate::user_band::bar_prefix_span(style, self.is_spoken());
             lines.extend(prefix_hyperlink_lines(
                 wrapped_images,
-                "  ".into(),
-                "  ".into(),
+                bar.clone(),
+                bar.clone(),
             ));
             if !wrapped_message.is_empty() {
                 lines.push(HyperlinkLine::new(Line::from("").style(style)));
             }
         }
-        lines.extend(wrapped_message);
+        if !wrapped_message.is_empty() {
+            // Hushdex: the accent bar replaces the "›" chevron; spoken prompts keep their
+            // distinct marker through the bar color.
+            let bar = crate::user_band::bar_prefix_span(style, self.is_spoken());
+            lines.extend(prefix_hyperlink_lines(wrapped_message, bar.clone(), bar));
+        }
         lines.push(HyperlinkLine::new(Line::from("").style(style)));
+        let mut lines = crate::user_band::apply_user_band(lines, style, self.is_spoken());
         for source in lines.iter_mut().filter_map(|line| line.source.as_mut()) {
             source.right_reserve = 1;
             source.copy_as_prose |= copy_as_prose;
@@ -358,7 +361,8 @@ fn wrap_user_message(
     style: Style,
     wrap_width: u16,
 ) -> Vec<HyperlinkLine> {
-    let element_style = user_message_element_style(style, accent_color_on(style.bg));
+    let element_style =
+        user_message_element_style(style, crate::style::deterministic_accent_on(style.bg));
     if message.is_empty() && text_elements.is_empty() {
         return Vec::new();
     }
