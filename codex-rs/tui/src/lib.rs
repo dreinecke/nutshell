@@ -173,6 +173,7 @@ pub(crate) mod insert_history;
 mod managed_worktree_tool_specs;
 mod managed_worktree_tools;
 mod terminal_program_status;
+mod user_band;
 pub use insert_history::insert_history_lines;
 mod footer_hint;
 mod key_hint;
