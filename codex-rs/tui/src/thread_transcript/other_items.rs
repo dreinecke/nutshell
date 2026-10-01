@@ -92,7 +92,7 @@ pub(super) fn cells(item: ThreadItemPayload, cwd: &AbsolutePathBuf) -> Transcrip
         }
         item @ ThreadItemPayload::SubAgentActivity { .. } => {
             if let Some(cell) = multi_agents::sub_agent_activity_history_cell(&item) {
-                cells.push(Arc::new(cell));
+                cells.push(Arc::from(cell));
             }
         }
         ThreadItemPayload::EnteredReviewMode { review, .. } => {
