@@ -417,6 +417,7 @@ impl ChatWidget {
     pub(crate) fn push_approval_request(&mut self, request: ApprovalRequest) {
         self.bottom_pane
             .push_approval_request(request, &self.config.features);
+        self.note_herdr_state(Some("Approval needed"));
         self.set_ambient_pet_notification(
             crate::pets::PetNotificationKind::Waiting,
             /*body*/ None,
@@ -432,6 +433,7 @@ impl ChatWidget {
         // Inactive-thread prompts must leave the foreground stream and command activity intact.
         self.bottom_pane
             .push_user_verification_request(thread_id, request);
+        self.note_herdr_state(Some("Verification needed"));
         self.set_ambient_pet_notification(
             crate::pets::PetNotificationKind::Waiting,
             /*body*/ None,
@@ -445,6 +447,7 @@ impl ChatWidget {
     ) {
         self.bottom_pane
             .push_mcp_server_elicitation_request(request);
+        self.note_herdr_state(Some("Input requested"));
         self.set_ambient_pet_notification(
             crate::pets::PetNotificationKind::Waiting,
             /*body*/ None,
@@ -463,6 +466,9 @@ impl ChatWidget {
         };
         self.notify(Notification::PlanModePrompt { title });
         self.bottom_pane.push_user_input_request(ev);
+        self.note_herdr_state(Some(
+            &summary.unwrap_or_else(|| "Question requested".into()),
+        ));
         self.set_ambient_pet_notification(
             crate::pets::PetNotificationKind::Waiting,
             /*body*/ None,
@@ -482,6 +488,7 @@ impl ChatWidget {
         });
         self.bottom_pane
             .push_approval_request(request, &self.config.features);
+        self.note_herdr_state(Some("Permissions requested"));
         self.set_ambient_pet_notification(
             crate::pets::PetNotificationKind::Waiting,
             /*body*/ None,
