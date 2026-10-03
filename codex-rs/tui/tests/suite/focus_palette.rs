@@ -339,6 +339,19 @@ impl PtyCodex {
         extra_args: &[&str],
         editor: Option<&Path>,
     ) -> Result<Self> {
+        Self::start_binary_with_env(codex, repo_root, codex_home, extra_args, editor, &[])
+    }
+
+    /// Start the binary with extra environment pairs, e.g. a fake Herdr pane environment.
+    #[allow(clippy::too_many_arguments)]
+    pub(super) fn start_binary_with_env(
+        codex: &Path,
+        repo_root: &Path,
+        codex_home: TempDir,
+        extra_args: &[&str],
+        editor: Option<&Path>,
+        extra_env: &[(&str, &str)],
+    ) -> Result<Self> {
         let mut master_fd = -1;
         let mut slave_fd = -1;
         let mut window_size = libc::winsize {
@@ -390,6 +403,11 @@ impl PtyCodex {
             .env_remove(codex_protocol::shell_environment::OPENAI_IDENTITY_TOKEN_FILE_ENV_VAR)
             .env("OPENAI_API_KEY", "focus-palette-test")
             .env("CODEX_HOME", codex_home.path())
+            .envs(
+                extra_env
+                    .iter()
+                    .map(|(k, v)| (k.to_string(), v.to_string())),
+            )
             .stdin(stdin)
             .stdout(stdout)
             .stderr(slave.try_clone()?)

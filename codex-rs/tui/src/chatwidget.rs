@@ -1065,6 +1065,7 @@ impl ChatWidget {
         }
         if removed_deferred || removed_visible {
             self.request_redraw();
+            self.note_herdr_state(None);
         }
     }
 
