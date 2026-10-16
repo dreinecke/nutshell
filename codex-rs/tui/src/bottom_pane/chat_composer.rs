@@ -4852,7 +4852,7 @@ impl ChatComposer {
             selection.register(status.intersection(buf.area), changed);
             selection.register(footer_rect.intersection(buf.area), changed);
         }
-        // Hushdex: the composer frame renders as the user band — tinted fill with an accent
+        // Nutshell: the composer frame renders as the user band — tinted fill with an accent
         // bar down the left edge — matching submitted prompts, with a dark-terminal fallback
         // so the band stays visible when no background color is reported.
         let style = crate::user_band::composer_fill();
@@ -4902,7 +4902,7 @@ impl ChatComposer {
                         .unwrap_or(1.0);
                     tier.prompt(charge)
                 } else {
-                    // Hushdex: the plain-state prompt glyph is the user band's accent bar;
+                    // Nutshell: the plain-state prompt glyph is the user band's accent bar;
                     // state variants (bash `!`, Luna, effort tiers) still draw in its place.
                     crate::user_band::bar_span(style, /*spoken*/ false)
                 }
@@ -5175,7 +5175,7 @@ mod tests {
         );
 
         let spacing_row = row_to_string(hint_row_idx - 1);
-        // Hushdex: the composer band paints its bar on otherwise blank rows.
+        // Nutshell: the composer band paints its bar on otherwise blank rows.
         assert_eq!(
             spacing_row.trim_start_matches('▌').trim(),
             "",
