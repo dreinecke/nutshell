@@ -2,9 +2,9 @@
 source: tui/src/app/owned_transcript_tests.rs
 expression: snapshot
 ---
-  ░░░░░░ ░░░░░░ +1
-  ░░░░░░ ░░░░░░
-  ░░░░░░ ░░░░░░
-
-› [Image #2][Image
-  #1][Image #3]
+▌ ░░░░░░ ░░░░░░ +1
+▌ ░░░░░░ ░░░░░░
+▌ ░░░░░░ ░░░░░░
+▌
+▌ [Image #2][Image
+▌ #1][Image #3]

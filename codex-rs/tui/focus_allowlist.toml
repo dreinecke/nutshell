@@ -51,3 +51,6 @@
 "WarningHistoryCell" = "full"
 "WebHyperlinkHistoryCell" = "full"
 "WebSearchCell" = "summary"
+"ClearScreenHeader" = "full"
+"ForkedThreadHistoryCell" = "full"
+"ImageGenerationHistoryCell" = "full"

@@ -850,10 +850,17 @@ mod tests {
                     ));
                 }
                 insta::assert_snapshot!(snapshots.join("\n"), @"
+<<<<<<< HEAD
                 PreWrap: › hello from voice
                 marker: Idx(1), text: Rgb(238, 238, 238), background: Rgb(68, 68, 68)
                 Terminal: › hello from voice
                 marker: Idx(1), text: Rgb(238, 238, 238), background: Rgb(68, 68, 68)
+=======
+                PreWrap: ▌ hello from voice
+                marker: Idx(9), text: Default, background: Idx(236)
+                Terminal: ▌ hello from voice
+                marker: Idx(9), text: Default, background: Idx(236)
+>>>>>>> c530adf (Rebase onto rust-v0.167.0 (2026-11-07.1))
                 ");
             },
         );

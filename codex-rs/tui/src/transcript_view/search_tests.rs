@@ -84,10 +84,10 @@ fn search_match_separates_user_prompts_only_while_visible() {
             view.render(area, &mut buffer, &cells);
             let rendered = crate::transcript_view::tests::text(&buffer);
             let rows = rendered.lines().collect::<Vec<_>>();
-            let first = rows.iter().position(|row| row.contains("› first")).unwrap();
+            let first = rows.iter().position(|row| row.contains("▌ first")).unwrap();
             let second = rows
                 .iter()
-                .position(|row| row.contains("› needle second"))
+                .position(|row| row.contains("▌ needle second"))
                 .unwrap();
             let background = buffer[(area.width - 1, first as u16)].bg;
             assert_ne!(background, ratatui::style::Color::Reset);
@@ -103,9 +103,10 @@ fn search_match_separates_user_prompts_only_while_visible() {
                 .collect::<Vec<_>>()
                 .join("\n");
             insta::assert_snapshot!(joined, @r"
-            #|› first|
-            #||
-            #|› needle second|
+            #|▌ first|
+            #|▌|
+            #|▌|
+            #|▌ needle second|
             ");
         },
     );
