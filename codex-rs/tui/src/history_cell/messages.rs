@@ -264,10 +264,8 @@ impl HistoryCell for UserHistoryCell {
             .max(/*other*/ 1);
 
         let style = crate::user_band::user_band_fill();
-        let element_style = user_message_element_style(
-            style,
-            crate::style::deterministic_accent_on(style.bg),
-        );
+        let element_style =
+            user_message_element_style(style, crate::style::deterministic_accent_on(style.bg));
 
         let wrapped_images = plain_hyperlink_lines(adaptive_wrap_lines(
             self.image_labels_not_in_message()

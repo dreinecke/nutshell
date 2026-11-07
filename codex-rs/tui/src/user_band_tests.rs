@@ -9,7 +9,7 @@ fn user_cell(message: &str) -> UserHistoryCell {
         text_elements: Vec::new(),
         local_image_paths: Vec::new(),
         remote_image_urls: Vec::new(),
-        spoken: false,
+        presentation: crate::history_cell::UserMessagePresentation::Plain,
     }
 }
 
@@ -69,7 +69,7 @@ fn blank_band_rows_carry_no_copy_text() {
 #[test]
 fn spoken_prompts_use_a_red_bar() {
     let mut cell = user_cell(&sanitize("note to self"));
-    cell.spoken = true;
+    cell.presentation = crate::history_cell::UserMessagePresentation::Spoken;
     let lines = cell.display_lines(/*width*/ 40);
     let bar = lines[0].spans[0].style.fg.expect("spoken bar fg");
     assert_eq!(bar, Color::LightRed);

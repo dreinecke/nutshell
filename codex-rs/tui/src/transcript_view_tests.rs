@@ -1332,7 +1332,7 @@ fn spoken_prompt_selection_keeps_its_fallback_contrast() {
                 let rendered = text(&before);
                 let first = rendered
                     .lines()
-                    .position(|row| row.contains("› one"))
+                    .position(|row| row.contains("▌ one"))
                     .unwrap() as u16;
                 let second = rendered
                     .lines()
@@ -1352,9 +1352,9 @@ fn spoken_prompt_selection_keeps_its_fallback_contrast() {
                     ),
                     (
                         Some("one\n"),
-                        Color::Red,
-                        rgb_color((238, 238, 238)),
-                        rgb_color((68, 68, 68)),
+                        Color::LightRed,
+                        Color::Reset,
+                        Color::Indexed(236),
                         true
                     )
                 );

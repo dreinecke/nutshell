@@ -22,7 +22,7 @@ use ratatui::text::Line;
 /// Identity of this Nutshell build: the date and sequence of fork changes that day.
 /// Bump this in every fork commit that changes behavior; it prints in the `/focus` notice so a
 /// running session can identify itself (`nutshell --version` only reports the upstream number).
-pub(crate) const NUTSHELL_BUILD: &str = "2026-10-16.3";
+pub(crate) const NUTSHELL_BUILD: &str = "2026-11-07.1";
 
 /// Whether new sessions start with focus mode on.
 ///

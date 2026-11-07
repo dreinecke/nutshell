@@ -3,7 +3,7 @@ source: tui/src/app/tests.rs
 expression: rendered
 ---
 
-  >_ OpenAI Codex (v0.162.1)
+  >_ OpenAI Codex (v0.167.0)
      <thread cwd>
 
 ▌ 
