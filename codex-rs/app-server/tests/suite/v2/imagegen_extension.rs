@@ -221,7 +221,7 @@ async fn standalone_image_generation_returns_saved_path_hint_to_model(
     let mut expected_request = json!({
         "prompt": "paint a blue whale",
         "background": expected_background,
-        "model": "gpt-image-2",
+        "model": "gpt-image-2.6-sunburst",
         "quality": "auto",
         "size": "auto",
     });
@@ -893,7 +893,7 @@ async fn standalone_image_edit_uses_attached_model_visible_image(
             "prompt": "add a red hat",
             "images": [{"image_url": TINY_PNG_DATA_URL}],
             "background": expected_background,
-            "model": "gpt-image-2",
+            "model": "gpt-image-2.6-sunburst",
             "quality": "auto",
             "size": "auto",
         })
@@ -945,7 +945,7 @@ async fn transparent_image_edit_preserves_metadata_and_recent_pathless_image(
             "prompt": "add a red hat",
             "images": [{"image_url": image_url}],
             "background": expected_background,
-            "model": "gpt-image-2",
+            "model": "gpt-image-2.6-sunburst",
             "quality": "auto",
             "size": "auto",
         })
@@ -1097,7 +1097,7 @@ generatedImage(result);
         json!({
             "prompt": "paint a blue whale",
             "background": expected_background,
-            "model": "gpt-image-2",
+            "model": "gpt-image-2.6-sunburst",
             "quality": "auto",
             "size": "auto",
         })

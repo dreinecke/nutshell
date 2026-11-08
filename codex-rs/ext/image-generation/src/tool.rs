@@ -65,7 +65,10 @@ use crate::artifact::image_generation_artifact_path;
 use crate::artifact::image_generation_output_hint;
 use crate::backend::CodexImagesBackend;
 
-const IMAGE_MODEL: &str = "gpt-image-2";
+// GPT Image 2.6 (2026-11-04): Sunburst is the quality/edit variant — the tool's reference and
+// recent-image edit paths need cross-edit consistency more than Flare's extra speed. One const
+// feeds both generate and edit requests; flipping to `gpt-image-2.6-flare` trades quality for it.
+const IMAGE_MODEL: &str = "gpt-image-2.6-sunburst";
 const MAX_EDIT_IMAGES: usize = 5;
 const MAX_EXECUTOR_GENERATED_IMAGE_BYTES: usize = 32 * 1024 * 1024;
 const MAX_EXECUTOR_GENERATED_IMAGE_BASE64_BYTES: usize =

@@ -243,6 +243,14 @@ bloat the patch and conflict on every rebase); instead verify the failing set ma
 pristine-tag baseline and that no *new* failures appear. Unit tests also run with focus off by
 default (see above), so the Nutshell hook is a no-op in them.
 
+One more known failure found at `rust-v0.167.0` (2026-11-08, verified identical with the fork
+patch stashed): all three cases of
+`codex-app-server::all suite::v2::imagegen_extension::standalone_image_generation_is_callable_from_code_mode_only`
+fail on this machine — the code-mode host's generated-image declaration never reaches the tool
+call output (`output[1]` is `Null`), with MCP handshake 404s during the host's startup/shutdown.
+All non-code-mode imagegen paths pass. Upstream main's copy of the test is unchanged, so no fix
+arrives via rebase; treat these three cases as environment-broken at this tag, not regressions.
+
 Snapshot workflow (if a snapshot intentionally changes): `just test -p codex-tui`, review
 `*.snap.new`, then `cargo insta accept -p codex-tui`.
 
