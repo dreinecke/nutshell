@@ -323,7 +323,13 @@ fn reply_answer_distinguishes_whitespace_from_nonprinting_markdown() {
         (" \t\n ", vec!["▌ ", "▌ ↪ Re: Why?", "▌ "]),
         (
             definition,
-            vec!["▌ ", "▌ ↪ Re: Why?", "▌ ", "▌   [docs]: https://example.test", "▌ "],
+            vec![
+                "▌ ",
+                "▌ ↪ Re: Why?",
+                "▌ ",
+                "▌   [docs]: https://example.test",
+                "▌ ",
+            ],
         ),
     ] {
         let rows: Vec<_> = reply_rows("Why?", answer, /*width*/ 60)
@@ -375,10 +381,12 @@ fn full_reply_caption_preserves_links_and_partial_selections() {
         let first = rows[1].line.to_string();
         let layout = TextLayout::new(rows, width);
         assert!(
-            layout
-                .text()
-                .trim_start()
-                .starts_with(first.trim_start_matches("▌ ↪ ").trim_start_matches("↪ ").trim_end()),
+            layout.text().trim_start().starts_with(
+                first
+                    .trim_start_matches("▌ ↪ ")
+                    .trim_start_matches("↪ ")
+                    .trim_end()
+            ),
             "{}",
             layout.text()
         );
