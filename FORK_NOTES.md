@@ -7,8 +7,8 @@ automated rebases safe. Read it top to bottom before rebasing.
 
 ## Base release and default TUI
 
-- **Base tag: `rust-v0.167.0`** (latest stable upstream release; rebased from `rust-v0.162.1`
-  on 2026-11-07).
+- **Base tag: `rust-v0.167.1`** (latest stable upstream release; rebased from `rust-v0.162.1`
+  on 2026-11-07, patch-bumped to `0.167.1` on 2026-11-10).
 - **Default TUI crate: `codex-rs/tui` (crate `codex-tui`).** The `codex` binary lives in
   `codex-rs/cli` and launches the TUI through `run_interactive_tui` (see
   `codex-rs/cli/src/main.rs`). Upstream's older parallel TUIs (`tui2`, `tui_app_server`) no
