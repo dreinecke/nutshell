@@ -4530,9 +4530,20 @@ async fn handle_start_side_seeds_navigation_before_thread_started() -> Result<()
                 side_frame(app, tui, size)?;
                 let buffer = tui.terminal.previous_buffer();
                 let divider = 63;
-                let row = (0..size.height)
-                    .find(|&y| buffer[(divider + 1, y)].symbol() == "›")
-                    .expect("right composer prompt");
+                // Nutshell: the composer band's bar replaces the "›" prompt marker.
+                let row = (0..size.height).find(|&y| {
+                    let s = buffer[(divider + 1, y)].symbol();
+                    s == "▌" || s == "›"
+                });
+                let row = match row {
+                    Some(row) => row,
+                    None => {
+                        let syms: Vec<_> = (0..size.height)
+                            .map(|y| buffer[(divider + 1, y)].symbol())
+                            .collect();
+                        panic!("right composer prompt; divider+1 symbols: {syms:?}")
+                    }
+                };
                 let snapshot_row = |y| {
                     (divider - 1..=divider + 1)
                         .map(|x| {

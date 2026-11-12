@@ -409,7 +409,7 @@ async fn gif_generation_preserves_animation_and_replays_a_still_preview() -> Res
         .and(wiremock::matchers::body_json(json!({
             "prompt": "A pixel alternating between red and blue.",
             "background": "opaque",
-            "model": "gpt-image-2",
+            "model": "gpt-image-2.6-sunburst",
             "quality": "auto",
             "size": "auto",
             "output_format": "gif",
