@@ -14,15 +14,8 @@ expression: persisted
     Line::from_iter([
         Span::from("▌ ").fg(Color::Rgb(99, 168, 248)),
         Span::from("  "),
-<<<<<<< HEAD
         Span::from("Answer from ").bg(Color::Rgb(57, 57, 57)),
         Span::from("desktop").fg(Color::Rgb(243, 139, 168)).bg(Color::Rgb(57, 57, 57)).bold(),
-    ]).bg(Color::Rgb(57, 57, 57)),
-    Line::default().bg(Color::Rgb(57, 57, 57)),
-=======
-        Span::from("Answer from "),
-        Span::from("desktop").fg(Color::Rgb(243, 139, 168)).bold(),
     ]).bg(Color::Indexed(236)),
     Line::from(Span::from("▌ ").fg(Color::Rgb(99, 168, 248))).bg(Color::Indexed(236)),
->>>>>>> c530adf (Rebase onto rust-v0.167.0 (2026-11-07.1))
 ]

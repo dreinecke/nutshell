@@ -850,17 +850,10 @@ mod tests {
                     ));
                 }
                 insta::assert_snapshot!(snapshots.join("\n"), @"
-<<<<<<< HEAD
-                PreWrap: › hello from voice
-                marker: Idx(1), text: Rgb(238, 238, 238), background: Rgb(68, 68, 68)
-                Terminal: › hello from voice
-                marker: Idx(1), text: Rgb(238, 238, 238), background: Rgb(68, 68, 68)
-=======
                 PreWrap: ▌ hello from voice
                 marker: Idx(9), text: Default, background: Idx(236)
                 Terminal: ▌ hello from voice
                 marker: Idx(9), text: Default, background: Idx(236)
->>>>>>> c530adf (Rebase onto rust-v0.167.0 (2026-11-07.1))
                 ");
             },
         );
@@ -952,7 +945,9 @@ mod tests {
             let screen = backend.vt100().screen();
             let plain = screen.cell(/*row*/ 0, /*col*/ 2).unwrap();
             let code = screen.cell(/*row*/ 0, /*col*/ 6).unwrap();
-            assert_eq!(plain.fgcolor(), vt100::Color::Rgb(238, 238, 238));
+            // Nutshell: the user band renders plain text with the default foreground; the
+            // assertion that matters is the code span differing from it.
+            assert_eq!(plain.fgcolor(), vt100::Color::Default);
             assert_ne!(code.fgcolor(), plain.fgcolor());
         });
     }

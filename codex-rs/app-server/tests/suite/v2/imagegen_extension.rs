@@ -1243,7 +1243,7 @@ generatedImage(result);
             "images": [{"image_url": TINY_PNG_DATA_URL}],
             "output_format": "gif",
             "background": "opaque",
-            "model": "gpt-image-2",
+            "model": "gpt-image-2.6-sunburst",
             "quality": "auto",
             "size": "auto",
         })
