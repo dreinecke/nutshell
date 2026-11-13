@@ -867,9 +867,11 @@ mod tests {
         let width = 30;
         let lines = new_user_prompt("**Bold** plain".into(), vec![], vec![], vec![])
             .display_hyperlink_lines(width);
+        // Nutshell: the band's bar prefix replaces the "›" chevron on prompt rows; skip the
+        // band's blank leading row by matching the text itself.
         let row = lines
             .iter()
-            .find(|line| line.line.to_string().starts_with("› "))
+            .find(|line| line.line.to_string().starts_with("▌ Bold"))
             .expect("prompt row");
         let mut backend = VT100Backend::new(width, /*height*/ 1);
         write_history_line(&mut backend, row, usize::from(width)).unwrap();
@@ -887,8 +889,8 @@ mod tests {
             plain.bold(),
         );
         insta::assert_snapshot!(snapshot, @"
-        › Bold plain
-        marker dim: true, first word bold: true, trailing word bold: false
+        ▌ Bold plain
+        marker dim: false, first word bold: true, trailing word bold: false
         ");
     }
 

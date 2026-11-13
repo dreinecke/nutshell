@@ -52,5 +52,7 @@
 "WebHyperlinkHistoryCell" = "full"
 "WebSearchCell" = "summary"
 "ClearScreenHeader" = "full"
+"DelegatedMessageCell" = "full"
+"LabeledToolCell" = "summary"
 "ForkedThreadHistoryCell" = "full"
 "ImageGenerationHistoryCell" = "full"
