@@ -4,7 +4,7 @@ expression: "format!(\"cursor={:?}\\n{frame}\",\nlayout.cursor_pos(area)).replac
 ---
 cursor=Some((13, 13))
                                                 
-  >_ OpenAI Codex (v<VERSION>)                      
+  >_ OpenAI Codex (v<VERSION>)                    
      loading                                    
                                                 
                                                 
@@ -14,8 +14,8 @@ cursor=Some((13, 13))
                                                 
                                                 
                                                 
-                                                
-› first line                                    
-  second line                                   
-                                                
+▌                                               
+▌ first line                                    
+▌ second line                                   
+▌                                               
   Waiting for startup  · esc cancel

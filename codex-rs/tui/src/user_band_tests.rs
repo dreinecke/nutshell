@@ -9,7 +9,7 @@ fn user_cell(message: &str) -> UserHistoryCell {
         text_elements: Vec::new(),
         local_image_paths: Vec::new(),
         remote_image_urls: Vec::new(),
-        presentation: crate::history_cell::UserMessagePresentation::Plain,
+        presentation: crate::history_cell::UserMessagePresentation::Typed,
     }
 }
 

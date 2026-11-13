@@ -46,6 +46,10 @@ impl HistoryCell for LabeledToolCell {
         vec![self.label.clone()]
     }
 
+    fn focus_lines(&self, width: u16) -> Vec<Line<'static>> {
+        crate::focus_summaries::first_display_line(self.display_lines(width))
+    }
+
     fn display_lines(&self, width: u16) -> Vec<Line<'static>> {
         self.cell.display_lines(width)
     }

@@ -1464,9 +1464,10 @@ fn tool_groups_expand_independently_inside_a_completed_turn() {
     )));
     view.sync_turn_details(&cells, /*enabled*/ true, /*active*/ None);
     insta::assert_snapshot!(turn_screen(&mut view, &cells).trim(), @r"
-    › Check why the service writes a diagnostic to
-      stderr each time it starts.
-
+    ▌
+    ▌ Check why the service writes a diagnostic to
+    ▌ stderr each time it starts.
+    ▌
 
     ▸ 3 previous messages
 
@@ -1563,8 +1564,9 @@ fn legacy_progress_stays_visible_until_a_final_answer() {
     view.jump_to_latest();
     let active = turn_screen(&mut view, &cells);
     insta::assert_snapshot!(active.trim(), @r"
-    › Check the fixture
-
+    ▌
+    ▌ Check the fixture
+    ▌
 
     • Intermediate progress
 

@@ -5221,7 +5221,7 @@ mod tests {
             /*config*/ None,
         );
         let lines = cells[0].display_lines(/*width*/ 80);
-        insta::assert_snapshot!(lines.get(1).map(ToString::to_string).unwrap_or_default(), @"› hello from history");
+        insta::assert_snapshot!(lines.get(1).map(ToString::to_string).unwrap_or_default(), @"▌ hello from history");
         let next = server.begin_older_history_page(thread_id);
         assert_eq!(next.as_deref(), Some("oldest"));
         drop(server);
