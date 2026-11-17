@@ -1,0 +1,63 @@
+{
+  "job": "659666f54f49",
+  "repo": "nutshell",
+  "started": "2026-11-17T22:32:54+00:00",
+  "digest_before": "aee57100ea92926f",
+  "captain": "nutshell",
+  "model": "claude-sonnet-5-5",
+  "harness": "claude",
+  "effort": "medium",
+  "cost_usd": 0.11339690000000001,
+  "passed_over": [],
+  "state": "done",
+  "proposals": [],
+  "suggestions": [
+    {
+      "id": "C-008",
+      "words": "The 0.169.1 rebase has no commit or publication yet and the release build was still running at last report, so it cannot be closed."
+    }
+  ],
+  "entry": {
+    "at": "2026-11-17T22:33:02+00:00",
+    "closed": [],
+    "retitled": [],
+    "listed": [
+      {
+        "id": "C-008",
+        "words": "The 0.169.1 rebase has no commit or publication yet and the release build was still running at last report, so it cannot be closed."
+      }
+    ],
+    "failed": []
+  },
+  "report": {
+    "id": "P-012",
+    "started": "2026-11-17T21:31:58+00:00",
+    "entries": [
+      {
+        "at": "2026-11-17T21:31:57+00:00",
+        "closed": [],
+        "retitled": [],
+        "listed": [
+          {
+            "id": "C-008",
+            "words": "Taken just now and still in progress. No commit or publication names the 0.169.1 rebase yet, so nothing to close."
+          }
+        ],
+        "failed": []
+      },
+      {
+        "at": "2026-11-17T22:33:02+00:00",
+        "closed": [],
+        "retitled": [],
+        "listed": [
+          {
+            "id": "C-008",
+            "words": "The 0.169.1 rebase has no commit or publication yet and the release build was still running at last report, so it cannot be closed."
+          }
+        ],
+        "failed": []
+      }
+    ]
+  },
+  "at": "2026-11-17T22:33:06+00:00"
+}
